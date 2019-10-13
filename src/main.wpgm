@@ -1,0 +1,37 @@
+import wollok.game.*
+import defines.*
+import cancha.*
+import timer.*
+import img.*
+
+program main
+{
+
+	game.title("Fullok")
+	game.width(FIELD_TILES_WIDTH)
+	game.height(FIELD_TILES_HEIGHT)
+
+	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", {
+		timer.update(TIME_UPDATE_INTERVAL)
+	})
+
+	var homeScreen = new Img(
+		position=game.at(0, 0),
+		image="presentacion.png"
+	)
+
+	keyboard.n().onPressDo {
+		if (null != homeScreen)
+		{
+			homeScreen.destroy()
+			homeScreen = null
+			game.sound("hinchada.ogg")			
+		} 
+		cancha.init(0, 0)
+	}
+	keyboard.num1().onPressDo { game.stop() }
+	keyboard.d().onPressDo { console.println(game.allVisuals()) }
+
+	game.boardGround("cancha.png")
+	game.start()
+}
