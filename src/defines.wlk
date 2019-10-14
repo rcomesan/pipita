@@ -53,12 +53,12 @@ object general
 	method getRndPos(_minPos, _maxPos)
 	{
 		var minPos = new Position(
-			x=general.clamp(_minPos.x(), 0, FIELD_TILES_WIDTH - 1),
-			y=general.clamp(_minPos.y(), 0, FIELD_TILES_HEIGHT - 1))
+			x=self.clamp(_minPos.x(), 0, FIELD_TILES_WIDTH - 1),
+			y=self.clamp(_minPos.y(), 0, FIELD_TILES_HEIGHT - 1))
 	
 		var maxPos = new Position(
-			x=general.clamp((if (_maxPos.x() <= 0) FIELD_TILES_WIDTH - 1 else 0) + _maxPos.x(), 0, FIELD_TILES_WIDTH - 1),
-			y=general.clamp((if (_maxPos.y() <= 0) FIELD_TILES_HEIGHT -1 else 0) + _maxPos.y(), 0, FIELD_TILES_HEIGHT - 1))
+			x=self.clamp((if (_maxPos.x() <= 0) FIELD_TILES_WIDTH - 1 else 0) + _maxPos.x(), 0, FIELD_TILES_WIDTH - 1),
+			y=self.clamp((if (_maxPos.y() <= 0) FIELD_TILES_HEIGHT -1 else 0) + _maxPos.y(), 0, FIELD_TILES_HEIGHT - 1))
 		
 		return new Position(
 			x=(new Range(start=minPos.x(), end=maxPos.x())).anyOne(),
