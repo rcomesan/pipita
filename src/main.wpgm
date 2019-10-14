@@ -6,8 +6,7 @@ import img.*
 
 program main
 {
-
-	game.title("Fullok")
+	game.title("Pipita on Wollok")
 	game.width(FIELD_TILES_WIDTH)
 	game.height(FIELD_TILES_HEIGHT)
 
