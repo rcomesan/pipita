@@ -20,6 +20,11 @@ class Pelota inherits LivingObject
 		self.init(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
 	}
 	
+	method getType()
+	{
+		return OBJECT_TYPE_BALL
+	}
+	
 	override method image()
 	{
 		if (kickStartTime == 0)
@@ -54,6 +59,11 @@ class Pelota inherits LivingObject
 		}
 		
 		return pos
+	}
+	
+	method canWalkInto(_isPlayer, _fromDir)
+	{
+		return self.mover(_fromDir)
 	}
 	
 	method patear(_posJugador)
@@ -94,9 +104,8 @@ class Pelota inherits LivingObject
 		
 		if (cancha.isRespawnPos(newPosition))
 		{
-			var pelota = cancha.getPelotaAt(newPosition)
-			var obstaculo = cancha.getObstaculoAt(newPosition)
-			if ((null == obstaculo) && (null == pelota || pelota.mover(_dir)))
+			var obj = cancha.getObjectAt(newPosition)
+			if (null == obj || obj.canWalkInto(false, _dir))
 			{
 				position = newPosition
 				return true

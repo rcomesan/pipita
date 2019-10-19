@@ -64,7 +64,7 @@ class Jugador
 	{
 		if (enabled)
 		{
-			var pelota = cancha.getPelotaAt(position.up(1))
+			var pelota = cancha.getBallAt(position.up(1))
 			if (null != pelota)
 			{
 				game.sound("patear-pelota.ogg")
@@ -105,31 +105,17 @@ class Jugador
 			return false
 		}
 		
-		var pelota = cancha.getPelotaAt(newPosition)
-		var obstaculo = cancha.getObstaculoAt(newPosition)
-		
-		var puedeMover = true  
-			&& cancha.isLegalPos(newPosition)
-			&& null == pelota 
-		
-		if (null != pelota)
+		if (cancha.isLegalPos(newPosition)
 		{
-			// tratamos de acomodar la pelota
-			puedeMover = pelota.mover(dir)
+			var obj = cancha.getObjectAt(newPosition)
+
+			if (obj == null || obj.canWalkInto(true, dir))
+			{
+				position = newPosition
+				return true
+			}
 		}
-		
-		if (null != obstaculo)
-		{
-			// pisamos el obstáculo
-			obstaculo.tomar()
-		}
-		
-		if (puedeMover)
-		{
-			position = newPosition
-			return true
-		}
-		
+				
 		return false
 	}
 }

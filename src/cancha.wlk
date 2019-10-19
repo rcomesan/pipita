@@ -18,15 +18,10 @@ object cancha
 	var reloj
 	var puntaje
 	
-	var numPelotas = BALLS_MAX
-	var pelotas = []
-	
-	var numObstaculos = OBSTACLES_MAX
-	var obstaculos = []
+	var objetos = []
 	
 	method initialize()
 	{
-		console.println("cancha_initialize")
 		game.onTick(1000, "cancha-update", { self.update() })
 		
 		arco = new Arco(position=game.at(
@@ -34,16 +29,7 @@ object cancha
 			FIELD_TILES_HEIGHT - GOAL_TILES_HEIGHT
 		))
 
-		jugador = new Jugador()
-		puntaje = new Puntaje()
-		reloj = new Reloj(seconds=GAME_DURATION)
-
-		numPelotas.times({ i =>
-			var p = new Pelota()
-			pelotas.add(p)
-		})
-
-		numObstaculos.times({ i =>
+		OBSTACLES_MAX.times({ i =>
 			var n = general.getRndInt(1, 100)
 			var o = null
 
@@ -55,10 +41,16 @@ object cancha
 			{
 				o = new Hamburguesa()
 			}
-			obstaculos.add(o)
+			objetos.add(o)
 		})
-
-		console.println("field intialized successfully")
+		BALLS_MAX.times({ i =>
+			var p = new Pelota()
+			objetos.add(p)
+		})
+		
+		puntaje = new Puntaje()
+		reloj = new Reloj(seconds=GAME_DURATION)
+		jugador = new Jugador()
 	}
 	
 	method stop()
@@ -67,8 +59,7 @@ object cancha
 		{
 			activeGame = false
 			jugador.setEnabled(false)
-			pelotas.forEach({ p => p.kill() })	
-			obstaculos.forEach({ o => o.kill() })
+			objetos.forEach({ o => o.kill() })
 		}
 	}
 
@@ -78,8 +69,7 @@ object cancha
 		puntaje.reset()
 		reloj.reset()
 		jugador.reset()
-		pelotas.forEach({ p => p.respawn()})	
-		obstaculos.forEach({ o => o.respawn()})
+		objetos.forEach({ o => o.respawn()})
 	}
 	
 	method update()
@@ -93,21 +83,21 @@ object cancha
 			}
 			else
 			{
-				obstaculos.forEach({ o =>
+				objetos.forEach({ o =>
 					if (!o.isAlive()) o.respawn()
 				})
 			}
 		}
 	}
 	
-	method getPelotaAt(_pos)
+	method getBallAt(_pos)
 	{
-		return pelotas.findOrElse({ p => p.position() ==_pos }, { null })
+		return objetos.findOrElse({ o => o.position() ==_pos && o.getType() == OBJECT_TYPE_BALL }, { null })
 	}
 	
-	method getObstaculoAt(_pos)
+	method getObjectAt(_pos)
 	{
-		return obstaculos.findOrElse({ o => o.position() ==_pos }, { null })
+		return objetos.findOrElse({ o => o.position() ==_pos }, { null })
 	}
 	
 	method getArco()
@@ -150,7 +140,6 @@ object cancha
 	{
 		return true
 			&& self.getJugador().position() != _pos
-			&& null == self.getPelotaAt(_pos)
-			&& null == self.getObstaculoAt(_pos)
+			&& null == self.getObjectAt(_pos)
 	}
 }

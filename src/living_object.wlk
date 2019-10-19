@@ -61,10 +61,9 @@ class LivingObject
 		
 		creationTime = timer.getCounter()
 		totalLife = general.getRndInt(lifeMin, lifeMax) + general.getRnd(-0.5, 0.5)
-		
 		position = general.getRndPos(
 			new Position(x=RESPAWN_RANGE_MIN_X, y=RESPAWN_RANGE_MIN_Y), 
 			new Position(x=RESPAWN_RANGE_MAX_X, y=RESPAWN_RANGE_MAX_Y)
-		)		
+		)
 	}
 }

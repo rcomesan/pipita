@@ -8,4 +8,18 @@ class Obstaculo inherits LivingObject
 	{
 		self.respawn()
 	}
+	
+	method canWalkInto(_isPlayer, _fromDir)
+	{
+		if (_isPlayer)
+		{
+			self.tomar()
+		}
+		return _isPlayer
+	}
+	
+	method getType()
+	{
+		return OBJECT_TYPE_OBSTACLE
+	}
 }
