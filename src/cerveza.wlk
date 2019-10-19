@@ -7,13 +7,13 @@ class Cerveza inherits Obstaculo
 {
 	method initialize()
 	{
-		self.setUp("cerveza.png", general.getRnd(BEER_LIFE_MIN, BEER_LIFE_MAX))
+		self.init("cerveza.png", BEER_LIFE_MIN, BEER_LIFE_MAX)
 	}
 	
 	override method tomar()
 	{
 		game.sound("cerveza.ogg")
-		cancha.getPlayer().setDrunk(true)
-		self.kill()
+		cancha.getJugador().setDrunk(true)
+		super()
 	}
 }

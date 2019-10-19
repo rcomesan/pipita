@@ -12,19 +12,21 @@ class Puntaje inherits Tablero
 	
 	method initialize()
 	{		
-		self.b_initialize(position.left(1))
-
+		self.setUp(position.left(1))
 		game.addVisual(self)
+		self.reset()
 	}
 
-	method destroy()
+	override method reset()
 	{
-		self.b_destroy()
-		game.removeVisual(self)
-		
-		if (null != gameOverImg) gameOverImg.destroy()
+		super()
+		if (null != gameOverImg) 
+		{
+			gameOverImg.destroy()
+			gameOverImg = null
+		}
 	}
-
+	
 	method position()
 	{
 		return position

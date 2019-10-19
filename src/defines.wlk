@@ -15,8 +15,8 @@ const RESPAWN_RANGE_MAX_Y = (FIELD_TILES_HEIGHT - 1) - 6
 
 const ANIM_SPEED = 4
 
-const BALLS_LIFE_MIN = 3
-const BALLS_LIFE_MAX = 6
+const BALLS_LIFE_MIN = 4
+const BALLS_LIFE_MAX = 9
 const BALLS_MAX = 3
 const OBSTACLES_MAX = 10
 
@@ -40,7 +40,7 @@ const RESULTADO_ARCO_NADA = -1
 const RESULTADO_ARCO_PALO = 0
 const RESULTADO_ARCO_GOL = 1
 
-const KICK_INITIAL_SPEED = 50
+const KICK_INITIAL_SPEED = 35
 
 const DIR_CENTER = 0
 const DIR_NORTH = 1
@@ -93,8 +93,6 @@ object general
 	method mapRange(_v, _fromMin, _fromMax, _toMin, _toMax)
 	{
 		var v = (_v - _fromMin) / (_fromMax - _fromMin) * (_toMax - _toMin) + _toMin
-		return self.clamp(v, _toMin, _toMax)
-	}
-	
-	
+		return self.clamp(_v, _toMin, _toMax)
+	}	
 }

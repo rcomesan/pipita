@@ -6,23 +6,27 @@ class Tablero
 	var value = 0
 	var texture = null
 	
-	method b_initialize(_position)
+	method setUp(_position)
 	{
 		self.reset()
 
 		texture = object 
 		{
+			var img = []
+			
+			method initialize()
+			{
+				61.times({ i =>
+					img.add("num-" + (i - 1) + ".png")
+				})
+			}
+			
 			method position() = _position
-			method image() = "num-" + value.toString() + ".png"	
+			method image() = img.get(value)	
 		}
 		game.addVisual(texture)		
 	}
 	
-	method b_destroy()
-	{
-		game.removeVisual(texture)
-	}
-
 	method reset()
 	{
 		self.setValue(0)

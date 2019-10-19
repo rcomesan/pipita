@@ -10,26 +10,27 @@ program main
 	game.width(FIELD_TILES_WIDTH)
 	game.height(FIELD_TILES_HEIGHT)
 
-	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", {
+	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", ({
 		timer.update(TIME_UPDATE_INTERVAL)
-	})
+	}))
 
-	var homeScreen = new Img(
+	var initialScreen = new Img(
 		position=game.at(0, 0),
 		image="presentacion.png"
 	)
 
-	keyboard.n().onPressDo {
-		if (null != homeScreen)
+	keyboard.n().onPressDo({
+		if (null != initialScreen)
 		{
-			homeScreen.destroy()
-			homeScreen = null
+			initialScreen.destroy()
+			initialScreen = null
 			game.sound("hinchada.ogg")			
-		} 
-		cancha.init(0, 0)
-	}
-	keyboard.num1().onPressDo { game.stop() }
-	keyboard.d().onPressDo { console.println(game.allVisuals()) }
+		}
+		cancha.newGame()
+	})
+
+	keyboard.num1().onPressDo({ game.stop() })
+	keyboard.d().onPressDo({ console.println(game.allVisuals()) })
 
 	game.boardGround("cancha.png")
 	game.start()

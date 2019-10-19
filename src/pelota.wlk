@@ -6,56 +6,51 @@ import living_object.*
 
 class Pelota inherits LivingObject
 {
-	var position = game.at(1,1)
+	var kickStartTime = 0
+	var kickSpeed = 0
+	var img = []
+	
+	method initialize()
+	{
+		img.add("pelota.png")
+		TEXTURED_BALL_MAX.times({ i =>
+			img.add("pelota-" + i.toString() + ".png")
+		})
 		
-	var kickTime = 0
-	var speed = 0
-	
-	override method init(_life)
-	{
-		super(_life)
-		game.addVisual(self)
-	}
-
-	method destroy()
-	{
-		game.removeVisual(self)
+		self.init(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
 	}
 	
-	method image()
+	override method image()
 	{
-		if (self.isAlive())
+		if (kickStartTime == 0)
 		{
-			if (self.isMoving())
-			{
-				return "pelota.png"
-			}
-			else
-			{
-				return "pelota-" + general.mapRange(self.getLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp() + ".png"
-			}
+			return img.get(general.mapRange(self.getLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp())
 		}
 
-		return "nada.png"	
+		return super()
 	}
 
-	method position() 
+	override method position() 
 	{
 		var pos = position
 
-		if (self.isMoving())
+		if (kickStartTime > 0)
 		{
 			pos = game.at(
 				pos.x(),
-				pos.y() + speed * (timer.getDelta(kickTime))
+				pos.y() + kickSpeed * (timer.getDelta(kickStartTime))
 			)
 
 			if ((RESULTADO_ARCO_NADA != cancha.getArco().esGol(pos)) || !cancha.isLegalPos(pos))
 			{
-				kickTime = 0
-				speed = 0
-				self.kill()
-			}		
+				kickStartTime = 0
+				kickSpeed = 0
+				self.respawn()
+			}
+		}
+		else if (active && !self.isAlive())
+		{
+			self.respawn()
 		}
 		
 		return pos
@@ -65,8 +60,8 @@ class Pelota inherits LivingObject
 	{
 		if (self.position().down(1).equals(_posJugador))
 		{
-			speed = KICK_INITIAL_SPEED
-			kickTime = timer.getCounter()
+			kickSpeed = KICK_INITIAL_SPEED
+			kickStartTime = timer.getCounter()
 			return true
 		}
 		return false
@@ -109,10 +104,5 @@ class Pelota inherits LivingObject
 		}
 		
 		return false
-	}
-
-	method isMoving()
-	{
-		return kickTime > 0
 	}
 }

@@ -7,13 +7,13 @@ class Hamburguesa inherits Obstaculo
 {
 	method initialize()
 	{
-		self.setUp("hamburguesa.png", general.getRnd(BURGUER_LIFE_MIN, BURGUER_LIFE_MAX))
+		self.init("hamburguesa.png", BURGUER_LIFE_MIN, BURGUER_LIFE_MAX)
 	}
 	
 	override method tomar()
 	{
 		game.sound("comer.ogg")
 		cancha.getPuntaje().incrementar(-1)
-		self.kill()
+		super()
 	}
 }

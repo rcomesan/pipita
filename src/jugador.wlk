@@ -5,19 +5,23 @@ import timer.*
 
 class Jugador
 {
-	var property position = game.at((FIELD_TILES_WIDTH -1) * 0.5,0)
+	var position = game.at(0, 0)
 	var enabled = true
 	var drunk = false
+	var img = []
 	
 	method position() = position
 
 	method image()
 	{
-		return "jugador-" + ((timer.getCounter() * ANIM_SPEED).truncate(0) % 2) + ".png"
+		return img.get((timer.getCounter() * ANIM_SPEED).truncate(0) % 2))
 	}
 	
 	method initialize()
 	{
+		img.add("jugador-0.png")
+		img.add("jugador-1.png")
+		
 		game.addVisual(self)
 		game.errorReporter(self)
 		
@@ -26,11 +30,15 @@ class Jugador
 		keyboard.right().onPressDo 	{ self.mover(DIR_EAST) }
 		keyboard.up().onPressDo 	{ self.mover(DIR_NORTH) }
 		keyboard.down().onPressDo 	{ self.mover(DIR_SOUTH) }
+		
+		self.reset()
 	}
 
-	method destroy()
+	method reset()
 	{
-		game.removeVisual(self)
+		self.setDrunk(false)
+		self.setEnabled(true)
+		position = game.at((FIELD_TILES_WIDTH -1) * 0.5,0)
 	}
 	
 	method isDrunk()
@@ -106,7 +114,7 @@ class Jugador
 		
 		if (null != pelota)
 		{
-			// tratamos de acomodamos la pelota
+			// tratamos de acomodar la pelota
 			puedeMover = pelota.mover(dir)
 		}
 		

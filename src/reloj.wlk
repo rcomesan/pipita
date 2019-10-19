@@ -12,18 +12,17 @@ class Reloj inherits Tablero
 	
 	method initialize()
 	{		
-		self.b_initialize(position.right(1))
-		startTime = timer.getCounter()
-
+		self.setUp(position.right(1))
 		game.addVisual(self)
+		self.reset()
 	}
 
-	method destroy()
+	override method reset()
 	{
-		self.b_destroy()
-		game.removeVisual(self)
+		super()
+		startTime = timer.getCounter()
 	}
-
+	
 	method position()
 	{
 		self.setValue(self.timeRemaining())
