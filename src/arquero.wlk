@@ -22,7 +22,7 @@ class Arquero inherits AnimatedVisual
 
 	method reset()
 	{
-		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, cancha.getArco().position().y() - 1)
+		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, cancha.getArco().position().y()`)
 	}
 	
 	method atajar(_posPelota)
@@ -40,17 +40,28 @@ class Arquero inherits AnimatedVisual
 	
 	method update()
 	{
-		var playerPosX = general.clamp(cancha.getJugador().position().x(),
-			cancha.getArco().getPosPaloIzq() + 1,
-			cancha.getArco().getPosPaloDer() - 1
-		)
+		var targetPosX = 0
 		
-		if (position.x() > playerPosX)
+		var ballsMoving = cancha.getObjects().filter({ o => o.getType == OBJECT_TYPE_BALL && o.isMoving() })
+		if (ballsMoving.size() > 0)
+		{
+			targetPosX = ballsMoving.first().position().x()
+		}
+		else
+		{
+	 		targetPosX = cancha.getJugador().position().x()
+		}
+		
+		targetPosX = general.clamp(targetPosX,
+				cancha.getArco().getPosPaloIzq() + 1,
+				cancha.getArco().getPosPaloDer() - 1)
+		
+		if (position.x() > targetPosX)
 		{
 			self.setAnimation(animIdle)
 			position = position.left(1)
 		}
-		else if (position.x() < playerPosX)
+		else if (position.x() < targetPosX)
 		{
 			self.setAnimation(animIdle)
 			position = position.right(1)

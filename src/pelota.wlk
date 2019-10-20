@@ -41,20 +41,23 @@ class Pelota inherits LivingObject
 
 		if (kickStartTime > 0)
 		{
-			pos = game.at(
-				pos.x(),
-				pos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
+			pos = new Position(
+				x=pos.x(),
+				y=pos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
 			)
 			
-			if (cancha.getArquero().atajar(pos)
-				|| cancha.getArco().esGol(pos) != RESULTADO_ARCO_NADA
-				|| !cancha.isLegalPos(pos))
+			if (pos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
-				kickStartTime = 0
-				kickSpeed = 0
-				
-				self.respawn()
-				pos = position
+				if (cancha.getArquero().atajar(pos)
+					|| cancha.getArco().esGol(pos) != RESULTADO_ARCO_NADA
+					|| !cancha.isLegalPos(pos))
+				{
+					kickStartTime = 0
+					kickSpeed = 0
+					
+					self.respawn()
+					pos = position
+				}
 			}
 		}
 		else if (active && !self.isAlive())
@@ -118,5 +121,10 @@ class Pelota inherits LivingObject
 		}
 		
 		return false
+	}
+	
+	method isMoving()
+	{
+		return kickSpeed > 0
 	}
 }

@@ -98,6 +98,16 @@ object cancha
 		return objetos.findOrElse({ o => o.position() ==_pos && o.getType() == OBJECT_TYPE_BALL }, { null })
 	}
 	
+	method getBalls()
+	{
+		return objetos.filter({ o => o.getType() == OBJECT_TYPE_BALL })
+	}
+
+	method getObjects()
+	{
+		return objetos
+	}
+	
 	method getObjectAt(_pos)
 	{
 		return objetos.findOrElse({ o => o.position() ==_pos }, { null })
