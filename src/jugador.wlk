@@ -7,6 +7,7 @@ import animated_visual.*
 class Jugador inherits AnimatedVisual
 {
 	var animIdle = 0
+	var animKicking = 0
 	
 	var enabled = true
 	var drunk = false
@@ -15,7 +16,8 @@ class Jugador inherits AnimatedVisual
 	{
 		self.setUpVisual()
 		animIdle = self.addAnimation("jugador", 2)
-		self.setAnimation(animIdle)
+		animKicking = self.addAnimation("jugador-pateando", 5)
+		self.setAnimation(animIdle, ANIM_SPEED, true)
 		
 		keyboard.space().onPressDo 	{ self.patear() }
 		keyboard.left().onPressDo 	{ self.mover(DIR_WEST) }
@@ -56,6 +58,8 @@ class Jugador inherits AnimatedVisual
 	{
 		if (enabled)
 		{
+			self.setAnimation(animKicking, ANIM_SPEED * 5, false)
+		
 			var pelota = cancha.getBallAt(position.up(1))
 			if (null != pelota)
 			{

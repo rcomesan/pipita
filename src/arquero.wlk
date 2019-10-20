@@ -16,7 +16,7 @@ class Arquero inherits AnimatedVisual
 		self.setUpVisual()
 		animIdle = self.addAnimation("arquero", 2)
 		animAtaja = self.addAnimation("arquero-ataja", 1)
-		self.setAnimation(animIdle)
+		self.setAnimation(animIdle, ANIM_SPEED, true)
 		self.reset()
 	}
 
@@ -31,7 +31,7 @@ class Arquero inherits AnimatedVisual
 			&& _posPelota.y().between(position.y() - 1, position.y()))
 		{
 			game.sound("patear-pelota.ogg")
-			self.setAnimation(animAtaja)
+			self.setAnimation(animAtaja, ANIM_SPEED, true)
 			return true
 		}
 		
@@ -42,7 +42,7 @@ class Arquero inherits AnimatedVisual
 	{
 		var targetPosX = 0
 		
-		var ballsMoving = cancha.getObjects().filter({ o => o.getType == OBJECT_TYPE_BALL && o.isMoving() })
+		var ballsMoving = cancha.getObjects().filter({ o => o.getType() == OBJECT_TYPE_BALL && o.isMoving() })
 		if (ballsMoving.size() > 0)
 		{
 			targetPosX = ballsMoving.first().position().x()
@@ -58,12 +58,12 @@ class Arquero inherits AnimatedVisual
 		
 		if (position.x() > targetPosX)
 		{
-			self.setAnimation(animIdle)
+			self.setAnimation(animIdle, ANIM_SPEED, true)
 			position = position.left(1)
 		}
 		else if (position.x() < targetPosX)
 		{
-			self.setAnimation(animIdle)
+			self.setAnimation(animIdle, ANIM_SPEED, true)
 			position = position.right(1)
 		}
 	}

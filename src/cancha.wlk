@@ -26,6 +26,9 @@ object cancha
 	{
 		game.onTick(1000, "cancha-update", { self.update() })
 		
+		// el orden de instanciacion importa.
+		// es la unica forma que tenemos de especificar sorting de visuals
+		
 		arco = new Arco(position=game.at(
 			FIELD_TILES_WIDTH * 0.5 - GOAL_TILES_WIDTH * 0.5,
 			FIELD_TILES_HEIGHT - GOAL_TILES_HEIGHT
@@ -45,6 +48,9 @@ object cancha
 			}
 			objetos.add(o)
 		})
+		
+		arquero = new Arquero()
+		
 		BALLS_MAX.times({ i =>
 			var p = new Pelota()
 			objetos.add(p)
@@ -52,7 +58,6 @@ object cancha
 		
 		puntaje = new Puntaje()
 		reloj = new Reloj(seconds=GAME_DURATION)
-		arquero = new Arquero()
 		jugador = new Jugador()
 	}
 	
