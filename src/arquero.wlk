@@ -17,7 +17,6 @@ class Arquero inherits AnimatedVisual
 		animIdle = self.addAnimation("arquero", 2)
 		animAtaja = self.addAnimation("arquero-ataja", 1)
 		self.setAnimation(animIdle)
-		
 		self.reset()
 	}
 
@@ -29,15 +28,13 @@ class Arquero inherits AnimatedVisual
 	method atajar(_posPelota)
 	{
 		if (_posPelota.x() == position.x()
-			&& _posPelota.y().between(position.y(), position.y() + 1)
+			&& _posPelota.y().between(position.y(), position.y() + 1))
 		{
 			game.sound("patear-pelota.ogg")
 			self.setAnimation(animAtaja)
-			console.println("atajo")
 			return true
 		}
 		
-		console.println("no atajo " + _posPelota.x() + " - " + _posPelota.y())
 		return false
 	}
 	
