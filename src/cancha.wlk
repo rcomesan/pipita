@@ -3,6 +3,7 @@ import defines.*
 import pelota.*
 import arco.*
 import jugador.*
+import arquero.*
 import reloj.*
 import puntaje.*
 import hamburguesa.*
@@ -14,6 +15,7 @@ object cancha
 	
 	var jugador
 	var arco
+	var arquero
 	
 	var reloj
 	var puntaje
@@ -50,6 +52,7 @@ object cancha
 		
 		puntaje = new Puntaje()
 		reloj = new Reloj(seconds=GAME_DURATION)
+		arquero = new Arquero()
 		jugador = new Jugador()
 	}
 	
@@ -120,6 +123,11 @@ object cancha
 		return jugador
 	}
 
+	method getArquero()
+	{
+		return arquero
+	}
+	
 	method isRespawnPos(_pos)
 	{
 		return _pos.x() >= RESPAWN_RANGE_MIN_X 
@@ -138,8 +146,7 @@ object cancha
 	
 	method isEmptyPos(_pos)
 	{
-		return true
-			&& self.getJugador().position() != _pos
+		return self.getJugador().position() != _pos
 			&& null == self.getObjectAt(_pos)
 	}
 }

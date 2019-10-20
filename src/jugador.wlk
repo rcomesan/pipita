@@ -2,28 +2,20 @@ import wollok.game.*
 import defines.*
 import cancha.*
 import timer.*
+import animated_visual.*
 
-class Jugador
+class Jugador inherits AnimatedVisual
 {
-	var position = game.at(0, 0)
+	var animIdle = 0
+	
 	var enabled = true
 	var drunk = false
-	var img = []
-	
-	method position() = position
-
-	method image()
-	{
-		return img.get((timer.getCounter() * ANIM_SPEED).truncate(0) % 2))
-	}
 	
 	method initialize()
 	{
-		img.add("jugador-0.png")
-		img.add("jugador-1.png")
-		
-		game.addVisual(self)
-		game.errorReporter(self)
+		self.setUpVisual()
+		animIdle = self.addAnimation("jugador", 2)
+		self.setAnimation(animIdle)
 		
 		keyboard.space().onPressDo 	{ self.patear() }
 		keyboard.left().onPressDo 	{ self.mover(DIR_WEST) }
@@ -38,7 +30,7 @@ class Jugador
 	{
 		self.setDrunk(false)
 		self.setEnabled(true)
-		position = game.at((FIELD_TILES_WIDTH -1) * 0.5,0)
+		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, 0)
 	}
 	
 	method isDrunk()
@@ -105,7 +97,7 @@ class Jugador
 			return false
 		}
 		
-		if (cancha.isLegalPos(newPosition)
+		if (cancha.isLegalPos(newPosition))
 		{
 			var obj = cancha.getObjectAt(newPosition)
 

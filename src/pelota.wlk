@@ -43,19 +43,24 @@ class Pelota inherits LivingObject
 		{
 			pos = game.at(
 				pos.x(),
-				pos.y() + kickSpeed * (timer.getDelta(kickStartTime))
+				pos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
 			)
-
-			if ((RESULTADO_ARCO_NADA != cancha.getArco().esGol(pos)) || !cancha.isLegalPos(pos))
+			
+			if (cancha.getArquero().atajar(pos)
+				|| cancha.getArco().esGol(pos) != RESULTADO_ARCO_NADA
+				|| !cancha.isLegalPos(pos))
 			{
 				kickStartTime = 0
 				kickSpeed = 0
+				
 				self.respawn()
+				pos = position
 			}
 		}
 		else if (active && !self.isAlive())
 		{
 			self.respawn()
+			pos = position
 		}
 		
 		return pos

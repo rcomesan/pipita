@@ -4,13 +4,13 @@ import defines.*
 class Tablero
 {
 	var value = 0
-	var texture = null
+	var numTexture = null
 	
 	method setUp(_position)
 	{
 		self.reset()
 
-		texture = object 
+		numTexture = object 
 		{
 			var img = []
 			
@@ -24,7 +24,7 @@ class Tablero
 			method position() = _position
 			method image() = img.get(value)	
 		}
-		game.addVisual(texture)		
+		game.addVisual(numTexture)		
 	}
 	
 	method reset()
