@@ -10,9 +10,9 @@ program main
 	game.width(FIELD_TILES_WIDTH)
 	game.height(FIELD_TILES_HEIGHT)
 
-	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", ({
+	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", {
 		timer.update(TIME_UPDATE_INTERVAL)
-	}))
+	})
 
 	var initialScreen = new Img(
 		position=game.at(0, 0),
@@ -24,7 +24,9 @@ program main
 		{
 			initialScreen.destroy()
 			initialScreen = null
-			game.sound("hinchada.ogg")			
+			
+			game.sound("hinchada.ogg")
+			game.onTick(AMBIENT_MUSIC_INTERVAL, "ambient-play", { game.sound("hinchada.ogg") })	
 		}
 		cancha.newGame()
 	})

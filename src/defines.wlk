@@ -1,8 +1,9 @@
 import wollok.game.*
 
-const TIME_UPDATE_INTERVAL = 100
-
 const GAME_DURATION = 30
+
+const TIME_UPDATE_INTERVAL = 100
+const AMBIENT_MUSIC_INTERVAL = 115 * 1000
 
 const FIELD_TILES_WIDTH = 21
 const FIELD_TILES_HEIGHT = 16
