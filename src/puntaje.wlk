@@ -46,23 +46,23 @@ class Puntaje inherits Tablero
 	{
 		var imgNumber = 0
 		
-		if (self.getValue() == 3)
+		if (self.getValue().between(1, 2))
 		{
 			imgNumber = 1
 		}
-		else if (self.getValue().between(4, 6))
+		if (self.getValue() == 3)
 		{
 			imgNumber = 2
 		}
-		else if (self.getValue().between(7, 10))
+		else if (self.getValue().between(4, 6))
 		{
 			imgNumber = 3
 		}
-		else if (self.getValue().between(11, 15))
+		else if (self.getValue().between(7, 10))
 		{
 			imgNumber = 4
 		}
-		else if (self.getValue() > 15)
+		else if (self.getValue() > 10)
 		{
 			imgNumber = 5
 		}
