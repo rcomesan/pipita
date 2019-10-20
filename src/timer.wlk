@@ -4,7 +4,6 @@ object timer {
 	method update(_interval)
 	{
 		time = time + (_interval / 1000)
-		console.println(time)
 	}
 	
 	method getCounter() = time

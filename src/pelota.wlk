@@ -10,6 +10,9 @@ class Pelota inherits LivingObject
 	var kickSpeed = 0
 	var img = []
 	
+	var currentPos = game.at(0, 0)
+	var currentImg = 0
+	
 	method initialize()
 	{
 		img.add("pelota.png")
@@ -17,7 +20,9 @@ class Pelota inherits LivingObject
 			img.add("pelota-" + i.toString() + ".png")
 		})
 		
-		self.init(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
+		self.setUp(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
+		
+		game.onTick(16, "pelota-update", { self.update() })
 	}
 	
 	method getType()
@@ -29,46 +34,52 @@ class Pelota inherits LivingObject
 	{
 		if (kickStartTime == 0)
 		{
-			return img.get(general.mapRange(self.getLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp())
+			return img.get(currentImg)
 		}
 
 		return super()
 	}
-
+	
 	override method position() 
+	{		
+		return currentPos
+	}
+	
+	method update()
 	{
-		var pos = position
+		currentPos = position
 
 		if (kickStartTime > 0)
 		{
-			pos = new Position(
-				x=pos.x(),
-				y=pos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
+			currentPos = new Position(
+				x=currentPos.x(),
+				y=currentPos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
 			)
 			
-			if (pos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
+			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
-				if (cancha.getArquero().atajar(pos)
-					|| cancha.getArco().esGol(pos) != RESULTADO_ARCO_NADA
-					|| !cancha.isLegalPos(pos))
+				if (cancha.getArquero().atajar(currentPos)
+					|| cancha.getArco().esGol(currentPos) != RESULTADO_ARCO_NADA
+					|| !cancha.isLegalPos(currentPos))
 				{
 					kickStartTime = 0
 					kickSpeed = 0
 					
 					self.respawn()
-					pos = position
 				}
 			}
 		}
 		else if (active && !self.isAlive())
 		{
 			self.respawn()
-			pos = position
 		}
 		
-		return pos
+		if (kickStartTime == 0)
+		{
+			currentImg = general.mapRange(self.getLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp()
+		}
 	}
-	
+
 	method canWalkInto(_isPlayer, _fromDir)
 	{
 		return self.mover(_fromDir)

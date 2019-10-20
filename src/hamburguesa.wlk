@@ -7,7 +7,7 @@ class Hamburguesa inherits Obstaculo
 {
 	method initialize()
 	{
-		self.init("hamburguesa.png", BURGUER_LIFE_MIN, BURGUER_LIFE_MAX)
+		self.setUp("hamburguesa.png", BURGUER_LIFE_MIN, BURGUER_LIFE_MAX)
 	}
 	
 	override method tomar()

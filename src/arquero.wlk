@@ -28,7 +28,7 @@ class Arquero inherits AnimatedVisual
 	method atajar(_posPelota)
 	{
 		if (_posPelota.x() == position.x()
-			&& _posPelota.y().between(position.y(), position.y() + 1))
+			&& _posPelota.y().between(position.y() - 1, position.y()))
 		{
 			game.sound("patear-pelota.ogg")
 			self.setAnimation(animAtaja)

@@ -14,7 +14,7 @@ class LivingObject
 	var image = "nada.png"
 	var position = game.at(0, 0)
 	
-	method init(_image, _lifeMin, _lifeMax)
+	method setUp(_image, _lifeMin, _lifeMax)
 	{
 		game.addVisual(self)
 		
