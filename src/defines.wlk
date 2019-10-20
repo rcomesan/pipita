@@ -22,8 +22,8 @@ const BALLS_LIFE_MAX = 9
 const BALLS_MAX = 3
 const OBSTACLES_MAX = 10
 
-const BURGUER_LIFE_MIN = 1
-const BURGUER_LIFE_MAX = 4
+const FOOD_LIFE_MIN = 1
+const FOOD_LIFE_MAX = 4
 
 const BEER_LIFE_MIN = 1
 const BEER_LIFE_MAX = 3

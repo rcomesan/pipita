@@ -1,19 +1,11 @@
 import wollok.game.*
-import obstaculo.*
-import cancha.*
+import comida.*
 import defines.*
 
-class Hamburguesa inherits Obstaculo
+class Hamburguesa inherits Comida
 {
 	method initialize()
 	{
-		self.setUp("hamburguesa.png", BURGUER_LIFE_MIN, BURGUER_LIFE_MAX)
-	}
-	
-	override method tomar()
-	{
-		game.sound("comer.ogg")
-		cancha.getPuntaje().incrementar(-1)
-		super()
+		self.setUp("hamburguesa.png", FOOD_LIFE_MIN, FOOD_LIFE_MAX)
 	}
 }

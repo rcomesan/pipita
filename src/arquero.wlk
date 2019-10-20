@@ -22,7 +22,7 @@ class Arquero inherits AnimatedVisual
 
 	method reset()
 	{
-		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, cancha.getArco().position().y()`)
+		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, cancha.getArco().position().y())
 	}
 	
 	method atajar(_posPelota)

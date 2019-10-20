@@ -7,6 +7,8 @@ import arquero.*
 import reloj.*
 import puntaje.*
 import hamburguesa.*
+import papas.*
+import pancho.*
 import cerveza.*
 
 object cancha
@@ -42,10 +44,19 @@ object cancha
 			{
 				o = new Cerveza()
 			}
-			else
+			else if (n.between(40, 60))
 			{
 				o = new Hamburguesa()
 			}
+			else if (n.between(60, 80))
+			{
+				o = new Pancho()
+			}
+			else
+			{
+				o = new Papas()
+			}
+			
 			objetos.add(o)
 		})
 		
