@@ -1,8 +1,9 @@
 import wollok.game.*
+import static_visual.*
 import defines.*
 import time.*
 
-class LivingObject
+class LivingObject inherits StaticVisual
 {
 	var active = true
 	var creationTime = 0
@@ -11,12 +12,9 @@ class LivingObject
 	var lifeMax = 0
 	var totalLife = 0
 	
-	var image = "nada.png"
-	var position = game.at(0, 0)
-	
-	method setUp(_image, _lifeMin, _lifeMax)
+	method setup(_image, _lifeMin, _lifeMax)
 	{
-		game.addVisual(self)
+		self.setupVisual(game.at(0, 0), _image)
 		
 		image = _image
 		lifeMin = 0.max(_lifeMin)
@@ -24,30 +22,20 @@ class LivingObject
 		
 		self.respawn()	
 	}
-	
-	method position()
-	{
-		return position		
-	}
-	
-	method image()
-	{
-		return image
-	}
-	
-	method totalLife()
+		
+	method getTotalLife()
 	{
 		return totalLife
 	}
 	
-	method getLife()
+	method getCurrentLife()
 	{
 		return 0.max(totalLife - time.getDelta(creationTime))
 	}
 	
 	method isAlive()
 	{
-		return active && self.getLife() > 0
+		return active && self.getCurrentLife() > 0
 	}
 	
 	method kill()

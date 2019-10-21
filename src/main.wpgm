@@ -1,6 +1,6 @@
 import wollok.game.*
 import defines.*
-import cancha.*
+import field.*
 import time.*
 import static_visual.*
 
@@ -28,7 +28,7 @@ program main
 			game.sound("hinchada.ogg")
 			game.onTick(AMBIENT_MUSIC_INTERVAL, "ambient-play", { game.sound("hinchada.ogg") })	
 		}
-		cancha.newGame()
+		field.newGame()
 	})
 
 	keyboard.num1().onPressDo({ game.stop() })

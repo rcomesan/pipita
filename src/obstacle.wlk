@@ -2,9 +2,9 @@ import wollok.game.*
 import defines.*
 import living_object.*
 
-class Obstaculo inherits LivingObject
+class Obstacle inherits LivingObject
 {
-	method tomar()
+	method take()
 	{
 		self.respawn()
 	}
@@ -13,7 +13,7 @@ class Obstaculo inherits LivingObject
 	{
 		if (_isPlayer)
 		{
-			self.tomar()
+			self.take()
 		}
 		return _isPlayer
 	}

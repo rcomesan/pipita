@@ -1,10 +1,10 @@
 import wollok.game.*
 import time.*
 import defines.*
-import cancha.*
+import field.*
 import living_object.*
 
-class Pelota inherits LivingObject
+class Ball inherits LivingObject
 {
 	var kickStartTime = 0
 	var kickSpeed = 0
@@ -20,7 +20,7 @@ class Pelota inherits LivingObject
 			img.add("pelota-" + i.toString() + ".png")
 		})
 		
-		self.setUp(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
+		self.setup(img.get(0), BALLS_LIFE_MIN, BALLS_LIFE_MAX)
 		
 		game.onTick(16, "pelota-update", { self.update() })
 	}
@@ -58,9 +58,9 @@ class Pelota inherits LivingObject
 			
 			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
-				if (cancha.getArquero().atajar(currentPos)
-					|| cancha.getArco().esGol(currentPos) != RESULTADO_ARCO_NADA
-					|| !cancha.isLegalPos(currentPos))
+				if (field.getGoalkeeper().canSave(currentPos)
+					|| field.getGoal().isGoal(currentPos) != GOAL_RESULT_NOTHING
+					|| !field.isLegalPos(currentPos))
 				{
 					kickStartTime = 0
 					kickSpeed = 0
@@ -76,18 +76,18 @@ class Pelota inherits LivingObject
 		
 		if (kickStartTime == 0)
 		{
-			currentImg = general.mapRange(self.getLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp()
+			currentImg = general.mapRange(self.getCurrentLife(), 1, self.getTotalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp()
 		}
 	}
 
 	method canWalkInto(_isPlayer, _fromDir)
 	{
-		return self.mover(_fromDir)
+		return self.move(_fromDir)
 	}
 	
-	method patear(_posJugador)
+	method kick(_posPlayer)
 	{
-		if (self.position().down(1).equals(_posJugador))
+		if (self.position().down(1).equals(_posPlayer))
 		{
 			kickSpeed = KICK_INITIAL_SPEED
 			kickStartTime = time.getCounter()
@@ -96,7 +96,7 @@ class Pelota inherits LivingObject
 		return false
 	}
 	
-	method mover(_dir)
+	method move(_dir)
 	{
 		var newPosition = game.at(0, 0)
 
@@ -121,9 +121,9 @@ class Pelota inherits LivingObject
 			return false
 		}
 		
-		if (cancha.isRespawnPos(newPosition))
+		if (field.isRespawnPos(newPosition))
 		{
-			var obj = cancha.getObjectAt(newPosition)
+			var obj = field.getObjectAt(newPosition)
 			if (null == obj || obj.canWalkInto(false, _dir))
 			{
 				position = newPosition

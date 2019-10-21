@@ -1,9 +1,9 @@
 import wollok.game.*
 import defines.*
-import cancha.*
+import field.*
 import animated_visual.*
 
-class Jugador inherits AnimatedVisual
+class Player inherits AnimatedVisual
 {
 	var animIdle = 0
 	var animKicking = 0
@@ -13,7 +13,7 @@ class Jugador inherits AnimatedVisual
 	
 	method initialize()
 	{
-		self.setUpVisual()
+		self.setupVisual()
 		animIdle = self.addAnimation("jugador", 2)
 		animKicking = self.addAnimation("jugador-pateando", 5)
 		self.setAnimation(animIdle, ANIM_SPEED, true)
@@ -54,11 +54,11 @@ class Jugador inherits AnimatedVisual
 		{
 			self.setAnimation(animKicking, ANIM_SPEED * 5, false)
 		
-			var pelota = cancha.getBallAt(position.up(1))
-			if (null != pelota)
+			var ball = field.getBallAt(position.up(1))
+			if (null != ball)
 			{
 				game.sound("patear-pelota.ogg")
-				pelota.patear(position)
+				ball.kick(position)
 			}
 			else
 			{
@@ -95,9 +95,9 @@ class Jugador inherits AnimatedVisual
 			return false
 		}
 		
-		if (cancha.isLegalPos(newPosition))
+		if (field.isLegalPos(newPosition))
 		{
-			var obj = cancha.getObjectAt(newPosition)
+			var obj = field.getObjectAt(newPosition)
 
 			if (obj == null || obj.canWalkInto(true, dir))
 			{

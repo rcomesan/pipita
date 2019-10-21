@@ -1,40 +1,34 @@
 import wollok.game.*
 import defines.*
-import pelota.*
-import arco.*
-import jugador.*
-import arquero.*
+import ball.*
+import goal.*
+import player.*
+import goalkeeper.*
 import timer.*
 import score.*
-import hamburguesa.*
-import papas.*
-import pancho.*
-import cerveza.*
+import burguer.*
+import french_fries.*
+import hot_dog.*
+import beer.*
 
-object cancha
+object field
 {
 	var activeGame = false
 	
-	var jugador
-	var arco
-	var arquero
+	var player
+	var goal
+	var goalkeeper
 	
 	var timer
 	var score
 	
-	var objetos = []
+	var objects = []
 	
 	method initialize()
 	{
-		game.onTick(1000, "cancha-update", { self.update() })
-		
-		// el orden de instanciacion importa.
-		// es la unica forma que tenemos de especificar sorting de visuals
-		
-		arco = new Arco(position=game.at(
-			FIELD_TILES_WIDTH * 0.5 - GOAL_TILES_WIDTH * 0.5,
-			FIELD_TILES_HEIGHT - GOAL_TILES_HEIGHT
-		))
+		game.onTick(1000, "Goalkeeper-update", { self.update() })
+				
+		goal = new Goal()
 
 		OBSTACLES_MAX.times({ i =>
 			var n = general.getRndInt(1, 100)
@@ -42,34 +36,34 @@ object cancha
 
 			if (n.between(1, 40))
 			{
-				o = new Cerveza()
+				o = new Beer()
 			}
 			else if (n.between(40, 60))
 			{
-				o = new Hamburguesa()
+				o = new Burguer()
 			}
 			else if (n.between(60, 80))
 			{
-				o = new Pancho()
+				o = new HotDog()
 			}
 			else
 			{
-				o = new Papas()
+				o = new FrenchFries()
 			}
 			
-			objetos.add(o)
+			objects.add(o)
 		})
 		
-		arquero = new Arquero()
+		goalkeeper = new Goalkeeper()
 		
 		BALLS_MAX.times({ i =>
-			var p = new Pelota()
-			objetos.add(p)
+			var b = new Ball()
+			objects.add(b)
 		})
 		
 		score = new Score()
 		timer = new Timer(seconds=GAME_DURATION)
-		jugador = new Jugador()
+		player = new Player()
 	}
 	
 	method endGame()
@@ -77,8 +71,8 @@ object cancha
 		if (activeGame)
 		{
 			activeGame = false
-			jugador.setEnabled(false)
-			objetos.forEach({ o => o.kill() })
+			player.setEnabled(false)
+			objects.forEach({ o => o.kill() })
 		}
 	}
 
@@ -87,8 +81,8 @@ object cancha
 		activeGame = true
 		score.reset()
 		timer.reset()
-		jugador.reset()
-		objetos.forEach({ o => o.respawn()})
+		player.reset()
+		objects.forEach({ o => o.respawn()})
 	}
 	
 	method update()
@@ -102,7 +96,7 @@ object cancha
 			}
 			else
 			{
-				objetos.forEach({ o =>
+				objects.forEach({ o =>
 					if (!o.isAlive()) o.respawn()
 				})
 			}
@@ -111,27 +105,27 @@ object cancha
 	
 	method getBallAt(_pos)
 	{
-		return objetos.findOrElse({ o => o.position() ==_pos && o.getType() == OBJECT_TYPE_BALL }, { null })
+		return objects.findOrElse({ o => o.position() ==_pos && o.getType() == OBJECT_TYPE_BALL }, { null })
 	}
 	
 	method getBalls()
 	{
-		return objetos.filter({ o => o.getType() == OBJECT_TYPE_BALL })
+		return objects.filter({ o => o.getType() == OBJECT_TYPE_BALL })
 	}
 
 	method getObjects()
 	{
-		return objetos
+		return objects
 	}
 	
 	method getObjectAt(_pos)
 	{
-		return objetos.findOrElse({ o => o.position() ==_pos }, { null })
+		return objects.findOrElse({ o => o.position() ==_pos }, { null })
 	}
 	
-	method getArco()
+	method getGoal()
 	{
-		return arco
+		return goal
 	}
 	
 	method getTimer()
@@ -144,14 +138,14 @@ object cancha
 		return score	
 	}
 	
-	method getJugador()
+	method getPlayer()
 	{
-		return jugador
+		return player
 	}
 
-	method getArquero()
+	method getGoalkeeper()
 	{
-		return arquero
+		return goalkeeper
 	}
 	
 	method isRespawnPos(_pos)
@@ -172,7 +166,7 @@ object cancha
 	
 	method isEmptyPos(_pos)
 	{
-		return self.getJugador().position() != _pos
+		return self.getPlayer().position() != _pos
 			&& null == self.getObjectAt(_pos)
 	}
 }

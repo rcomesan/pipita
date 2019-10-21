@@ -23,9 +23,9 @@ class Score inherits NumericBoard
 		}
 	}
 		
-	method incrementar(_cantidad)
+	method increment(_amount)
 	{
-		self.setValue(self.getValue() + _cantidad) 		
+		self.setValue(self.getValue() + _amount) 		
 	}
 	
 	method showGameOver()

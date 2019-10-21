@@ -17,7 +17,7 @@ class AnimatedVisual
 	
 	var position = game.at(0, 0)
 		
-	method setUpVisual()
+	method setupVisual()
 	{
 		anims.add(["nada.png"])
 		game.addVisual(self)

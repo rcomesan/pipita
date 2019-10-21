@@ -1,37 +1,37 @@
 import wollok.game.*
 import defines.*
-import cancha.*
+import field.*
 import time.*
 import animated_visual.*
 
-class Arquero inherits AnimatedVisual
+class Goalkeeper inherits AnimatedVisual
 {
 	var animIdle = 0
-	var animAtaja = 0
+	var animSave = 0
 	
 	method initialize()
 	{
-		game.onTick(GOALKEEPER_REACTION, "arquero-update", { self.update() })
+		game.onTick(GOALKEEPER_REACTION, "goalkeeper-update", { self.update() })
 		
-		self.setUpVisual()
+		self.setupVisual()
 		animIdle = self.addAnimation("arquero", 2)
-		animAtaja = self.addAnimation("arquero-ataja", 1)
+		animSave = self.addAnimation("arquero-ataja", 1)
 		self.setAnimation(animIdle, ANIM_SPEED, true)
 		self.reset()
 	}
 
 	method reset()
 	{
-		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, cancha.getArco().position().y())
+		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, field.getGoal().position().y())
 	}
 	
-	method atajar(_posPelota)
+	method canSave(_ballPos)
 	{
-		if (_posPelota.x() == position.x()
-			&& _posPelota.y().between(position.y() - 1, position.y()))
+		if (_ballPos.x() == position.x()
+			&& _ballPos.y().between(position.y() - 1, position.y()))
 		{
 			game.sound("patear-pelota.ogg")
-			self.setAnimation(animAtaja, ANIM_SPEED, true)
+			self.setAnimation(animSave, ANIM_SPEED, true)
 			return true
 		}
 		
@@ -42,19 +42,19 @@ class Arquero inherits AnimatedVisual
 	{
 		var targetPosX = 0
 		
-		var ballsMoving = cancha.getObjects().filter({ o => o.getType() == OBJECT_TYPE_BALL && o.isMoving() })
+		var ballsMoving = field.getObjects().filter({ o => o.getType() == OBJECT_TYPE_BALL && o.isMoving() })
 		if (ballsMoving.size() > 0)
 		{
 			targetPosX = ballsMoving.first().position().x()
 		}
 		else
 		{
-	 		targetPosX = cancha.getJugador().position().x()
+	 		targetPosX = field.getPlayer().position().x()
 		}
 		
 		targetPosX = general.clamp(targetPosX,
-				cancha.getArco().getPosPaloIzq() + 1,
-				cancha.getArco().getPosPaloDer() - 1)
+				field.getGoal().getPosPostLeft() + 1,
+				field.getGoal().getPosPostRight() - 1)
 		
 		if (position.x() > targetPosX)
 		{
