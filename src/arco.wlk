@@ -34,7 +34,7 @@ class Arco
 				&& _posPelota.x() < self.getPosPaloDer()
 				&& _posPelota.y() > position.y())
 			{
-				cancha.getPuntaje().incrementar(1)
+				cancha.getScore().incrementar(1)
 				game.sound("gol.ogg")		
 				return RESULTADO_ARCO_GOL
 			}	

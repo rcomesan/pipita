@@ -1,19 +1,15 @@
 import wollok.game.*
 import defines.*
-import tablero.*
-import timer.*
-import img.*
+import numeric_board.*
+import static_visual.*
 
-class Puntaje inherits Tablero
+class Score inherits NumericBoard
 {
-	var position = game.at(FIELD_TILES_WIDTH - 2, FIELD_TILES_HEIGHT - 3)
-	var image = "goles.png"
 	var gameOverImg = null
 	
-	method initialize()
+	override method initialize()
 	{		
-		self.setUp(position.left(1))
-		game.addVisual(self)
+		self.setup(game.at(FIELD_TILES_WIDTH - 3, FIELD_TILES_HEIGHT - 3), "goles.png", false)	
 		self.reset()
 	}
 
@@ -26,17 +22,7 @@ class Puntaje inherits Tablero
 			gameOverImg = null
 		}
 	}
-	
-	method position()
-	{
-		return position
-	}
-	
-	method image()
-	{
-		return image		
-	}
-	
+		
 	method incrementar(_cantidad)
 	{
 		self.setValue(self.getValue() + _cantidad) 		
@@ -67,7 +53,7 @@ class Puntaje inherits Tablero
 			imgNumber = 5
 		}
 
-		gameOverImg = new Img(
+		gameOverImg = new StaticVisual(
 			position=game.center().left(1).down(1),
 			image="resultado-" + imgNumber.toString() + ".png"
 		)

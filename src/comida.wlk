@@ -8,7 +8,7 @@ class Comida inherits Obstaculo
 	override method tomar()
 	{
 		game.sound("comer.ogg")
-		cancha.getPuntaje().incrementar(-1)
+		cancha.getScore().incrementar(-1)
 		super()
 	}
 }

@@ -1,14 +1,27 @@
 import wollok.game.*
 import defines.*
+import static_visual.*
 
-class Tablero
+class NumericBoard inherits StaticVisual
 {
 	var value = 0
 	var numTexture = null
 	
-	method setUp(_position)
+	method setup(_position, _label, _leftAligned)
 	{
 		self.reset()
+		var numPos
+
+		if (_leftAligned)
+		{
+			self.setupVisual(_position, _label)
+			numPos = _position.right(1)
+		}
+		else
+		{
+			self.setupVisual(_position.right(1), _label)
+			numPos = _position
+		}
 
 		numTexture = object 
 		{
@@ -21,7 +34,7 @@ class Tablero
 				})
 			}
 			
-			method position() = _position
+			method position() = numPos
 			method image() = img.get(value)	
 		}
 		game.addVisual(numTexture)		

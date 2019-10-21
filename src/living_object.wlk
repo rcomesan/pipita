@@ -1,6 +1,6 @@
 import wollok.game.*
 import defines.*
-import timer.*
+import time.*
 
 class LivingObject
 {
@@ -42,7 +42,7 @@ class LivingObject
 	
 	method getLife()
 	{
-		return 0.max(totalLife - timer.getDelta(creationTime))
+		return 0.max(totalLife - time.getDelta(creationTime))
 	}
 	
 	method isAlive()
@@ -59,7 +59,7 @@ class LivingObject
 	{
 		active = true
 		
-		creationTime = timer.getCounter()
+		creationTime = time.getCounter()
 		totalLife = general.getRndInt(lifeMin, lifeMax) + general.getRnd(-0.5, 0.5)
 		position = general.getRndPos(
 			new Position(x=RESPAWN_RANGE_MIN_X, y=RESPAWN_RANGE_MIN_Y), 

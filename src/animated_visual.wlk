@@ -1,12 +1,9 @@
 import wollok.game.*
-import timer.*
+import time.*
 import defines.*
 
 class AnimatedVisual
 {
-	var numFrames
-	var speed
-	
 	var anims = []
 	var animLooping = false
 	
@@ -49,7 +46,7 @@ class AnimatedVisual
 			animLooping = _inLoop
 			animNumber = general.clamp(_animNumber, 0, anims.size() - 1)
 			animSpeed = _speed
-			animStartTime = timer.getCounter()
+			animStartTime = time.getCounter()
 		}
 	}
 
@@ -61,7 +58,7 @@ class AnimatedVisual
 	method image()
 	{
 		var anim = anims.get(animNumber)
-		var frameNumber = (timer.getDelta(animStartTime) * animSpeed).truncate(0) % anim.size()
+		var frameNumber = (time.getDelta(animStartTime) * animSpeed).truncate(0) % anim.size()
 		
 		if (!animLooping && frameNumber == anim.size() - 1)
 		{

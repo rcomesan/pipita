@@ -1,11 +1,33 @@
-object timer {
-	var time = 0
+import wollok.game.*
+import defines.*
+import numeric_board.*
+import time.*
+
+class Timer inherits NumericBoard
+{
+	var startTime = 0
+	var seconds = 60
 	
-	method update(_interval)
+	override method initialize()
+	{	
+		game.onTick(500, "timer-update", { self.update() })
+		self.setup(game.at(1, FIELD_TILES_HEIGHT - 3), "tiempo.png", true)		
+		self.reset()
+	}
+
+	override method reset()
 	{
-		time = time + (_interval / 1000)
+		super()
+		startTime = time.getCounter()
 	}
 	
-	method getCounter() = time
-	method getDelta(_startTime) = (time - _startTime)
+	method update()
+	{
+		self.setValue(self.getTimeRemaining())
+	}
+	
+	method getTimeRemaining()
+	{
+		return seconds - time.getDelta(startTime).truncate(0) 		
+	}
 }

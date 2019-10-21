@@ -1,7 +1,7 @@
 import wollok.game.*
 import defines.*
 import cancha.*
-import timer.*
+import time.*
 import animated_visual.*
 
 class Arquero inherits AnimatedVisual

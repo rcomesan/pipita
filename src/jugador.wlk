@@ -1,7 +1,6 @@
 import wollok.game.*
 import defines.*
 import cancha.*
-import timer.*
 import animated_visual.*
 
 class Jugador inherits AnimatedVisual
@@ -9,8 +8,8 @@ class Jugador inherits AnimatedVisual
 	var animIdle = 0
 	var animKicking = 0
 	
-	var enabled = true
-	var drunk = false
+	var isEnabled = true
+	var isDrunk = false
 	
 	method initialize()
 	{
@@ -19,11 +18,11 @@ class Jugador inherits AnimatedVisual
 		animKicking = self.addAnimation("jugador-pateando", 5)
 		self.setAnimation(animIdle, ANIM_SPEED, true)
 		
-		keyboard.space().onPressDo 	{ self.patear() }
-		keyboard.left().onPressDo 	{ self.mover(DIR_WEST) }
-		keyboard.right().onPressDo 	{ self.mover(DIR_EAST) }
-		keyboard.up().onPressDo 	{ self.mover(DIR_NORTH) }
-		keyboard.down().onPressDo 	{ self.mover(DIR_SOUTH) }
+		keyboard.space().onPressDo 	{ self.kick() }
+		keyboard.left().onPressDo 	{ self.move(DIR_WEST) }
+		keyboard.right().onPressDo 	{ self.move(DIR_EAST) }
+		keyboard.up().onPressDo 	{ self.move(DIR_NORTH) }
+		keyboard.down().onPressDo 	{ self.move(DIR_SOUTH) }
 		
 		self.reset()
 	}
@@ -34,29 +33,24 @@ class Jugador inherits AnimatedVisual
 		self.setEnabled(true)
 		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, 0)
 	}
-	
-	method isDrunk()
-	{
-		return drunk
-	}
 
 	method setDrunk(_on)
 	{
-		drunk = _on
-		if (drunk)
+		isDrunk = _on
+		if (isDrunk)
 		{
-			game.schedule(DRUNK_EFFECT_DURATION * 1000, { => drunk = false })
+			game.schedule(DRUNK_EFFECT_DURATION * 1000, { => isDrunk = false })
 		}		
 	}
 	
 	method setEnabled(_on)
 	{
-		enabled = _on
+		isEnabled = _on
 	}
 	
-	method patear()
+	method kick()
 	{
-		if (enabled)
+		if (isEnabled)
 		{
 			self.setAnimation(animKicking, ANIM_SPEED * 5, false)
 		
@@ -73,12 +67,12 @@ class Jugador inherits AnimatedVisual
 		}
 	}
 	
-	method mover(_dir)
+	method move(_dir)
 	{
-		if (!enabled) return false
+		if (!isEnabled) return false
 				
 		var newPosition = game.at(0,0)
-		var dir = if (self.isDrunk()) general.getRndInt(1, 4) else _dir
+		var dir = if (isDrunk) general.getRndInt(1, 4) else _dir
 
 		if (dir == DIR_WEST)
 		{

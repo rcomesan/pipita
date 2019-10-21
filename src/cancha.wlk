@@ -4,8 +4,8 @@ import pelota.*
 import arco.*
 import jugador.*
 import arquero.*
-import reloj.*
-import puntaje.*
+import timer.*
+import score.*
 import hamburguesa.*
 import papas.*
 import pancho.*
@@ -19,8 +19,8 @@ object cancha
 	var arco
 	var arquero
 	
-	var reloj
-	var puntaje
+	var timer
+	var score
 	
 	var objetos = []
 	
@@ -67,12 +67,12 @@ object cancha
 			objetos.add(p)
 		})
 		
-		puntaje = new Puntaje()
-		reloj = new Reloj(seconds=GAME_DURATION)
+		score = new Score()
+		timer = new Timer(seconds=GAME_DURATION)
 		jugador = new Jugador()
 	}
 	
-	method stop()
+	method endGame()
 	{
 		if (activeGame)
 		{
@@ -85,8 +85,8 @@ object cancha
 	method newGame()
 	{
 		activeGame = true
-		puntaje.reset()
-		reloj.reset()
+		score.reset()
+		timer.reset()
 		jugador.reset()
 		objetos.forEach({ o => o.respawn()})
 	}
@@ -95,10 +95,10 @@ object cancha
 	{
 		if (activeGame)
 		{
-			if (reloj.timeRemaining() <= 0)
+			if (timer.getTimeRemaining() <= 0)
 			{
-				self.stop()
-				puntaje.showGameOver()
+				self.endGame()
+				score.showGameOver()
 			}
 			else
 			{
@@ -134,14 +134,14 @@ object cancha
 		return arco
 	}
 	
-	method getReloj()
+	method getTimer()
 	{
-		return reloj
+		return timer
 	}
 	
-	method getPuntaje()
+	method getScore()
 	{
-		return puntaje	
+		return score	
 	}
 	
 	method getJugador()

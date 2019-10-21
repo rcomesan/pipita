@@ -1,8 +1,8 @@
 import wollok.game.*
 import defines.*
 import cancha.*
-import timer.*
-import img.*
+import time.*
+import static_visual.*
 
 program main
 {
@@ -11,10 +11,10 @@ program main
 	game.height(FIELD_TILES_HEIGHT)
 
 	game.onTick(TIME_UPDATE_INTERVAL, "clock-update", {
-		timer.update(TIME_UPDATE_INTERVAL)
+		time.update(TIME_UPDATE_INTERVAL)
 	})
 
-	var initialScreen = new Img(
+	var initialScreen = new StaticVisual(
 		position=game.at(0, 0),
 		image="presentacion.png"
 	)

@@ -1,5 +1,5 @@
 import wollok.game.*
-import timer.*
+import time.*
 import defines.*
 import cancha.*
 import living_object.*
@@ -53,7 +53,7 @@ class Pelota inherits LivingObject
 		{
 			currentPos = new Position(
 				x=currentPos.x(),
-				y=currentPos.y() + (kickSpeed * (timer.getDelta(kickStartTime))).roundUp()
+				y=currentPos.y() + (kickSpeed * (time.getDelta(kickStartTime))).roundUp()
 			)
 			
 			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
@@ -90,7 +90,7 @@ class Pelota inherits LivingObject
 		if (self.position().down(1).equals(_posJugador))
 		{
 			kickSpeed = KICK_INITIAL_SPEED
-			kickStartTime = timer.getCounter()
+			kickStartTime = time.getCounter()
 			return true
 		}
 		return false
