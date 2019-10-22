@@ -59,7 +59,7 @@ class Ball inherits LivingObject
 			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
 				if (field.getGoalkeeper().canSave(currentPos)
-					|| field.getGoal().isGoal(currentPos) != GOAL_RESULT_NOTHING
+					|| field.getGoal().canScore(currentPos) != GOAL_RESULT_NOTHING
 					|| !field.isLegalPos(currentPos))
 				{
 					kickStartTime = 0

@@ -1,11 +1,14 @@
 import wollok.game.*
 import time.*
+import static_visual.*
 import defines.*
 
-class AnimatedVisual
+class AnimatedVisual inherits StaticVisual
 {
 	var anims = []
 	var animLooping = false
+	
+	var frameNumber = 0
 	
 	var animNumber = 0	
 	var animSpeed = 1
@@ -15,12 +18,12 @@ class AnimatedVisual
 	var animSpeedPrev = 0
 	var animStartTimePrev = 0
 	
-	var position = game.at(0, 0)
-		
 	method setupVisual()
 	{
 		anims.add(["nada.png"])
 		game.addVisual(self)
+		
+		game.onTick(16, "animated-visual-update", { self.update() })
 	}
 	
 	method addAnimation(_animName, _numFrames)
@@ -50,25 +53,24 @@ class AnimatedVisual
 		}
 	}
 
-	method position()
-	{
-		return position
-	}
-	
-	method image()
+	method update()
 	{
 		var anim = anims.get(animNumber)
-		var frameNumber = (time.getDelta(animStartTime) * animSpeed).truncate(0) % anim.size()
+		frameNumber = (time.getDelta(animStartTime) * animSpeed).truncate(0) % anim.size()
 		
 		if (!animLooping && frameNumber == anim.size() - 1)
 		{
 			animNumber = animNumberPrev
 			animSpeed = animSpeedPrev
 			animStartTime = animStartTimePrev
-
+			frameNumber = 0
+			
 			animLooping = true
 		}
-		
-		return anim.get(frameNumber)
+	}
+	
+	override method image()
+	{
+		return anims.get(animNumber).get(frameNumber)
 	}
 }

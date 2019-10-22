@@ -15,7 +15,7 @@ class Goal inherits StaticVisual
 		self.setupVisual(p, "arco.png")
 	}
 
-	method isGoal(_ballPos)
+	method canScore(_ballPos)
 	{
 		if (_ballPos.y() >= position.y())
 		{

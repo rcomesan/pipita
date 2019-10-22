@@ -99,5 +99,5 @@ object general
 	{
 		var v = (_v - _fromMin) / (_fromMax - _fromMin) * (_toMax - _toMin) + _toMin
 		return self.clamp(v, _toMin, _toMax)
-	}	
+	}
 }

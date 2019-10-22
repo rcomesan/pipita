@@ -14,9 +14,11 @@ class Goalkeeper inherits AnimatedVisual
 		game.onTick(GOALKEEPER_REACTION, "goalkeeper-update", { self.update() })
 		
 		self.setupVisual()
+		
 		animIdle = self.addAnimation("arquero", 2)
 		animSave = self.addAnimation("arquero-ataja", 1)
 		self.setAnimation(animIdle, ANIM_SPEED, true)
+
 		self.reset()
 	}
 

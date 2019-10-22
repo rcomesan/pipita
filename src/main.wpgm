@@ -28,6 +28,7 @@ program main
 			game.sound("hinchada.ogg")
 			game.onTick(AMBIENT_MUSIC_INTERVAL, "ambient-play", { game.sound("hinchada.ogg") })	
 		}
+		
 		field.newGame()
 	})
 
