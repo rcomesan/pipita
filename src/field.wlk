@@ -13,6 +13,9 @@ import beer.*
 
 object field
 {
+	const obstaclesMax = 10
+	const ballsMax = 3
+	
 	var activeGame = false
 	
 	var player
@@ -22,44 +25,17 @@ object field
 	var timer
 	var score
 	
-	var objects = []
+	var obstacles = []
+	var balls = []
 	
 	method initialize()
 	{
 		game.onTick(1000, "Goalkeeper-update", { self.update() })
-				
+		
 		goal = new Goal()
-
-		OBSTACLES_MAX.times({ i =>
-			var n = general.getRndInt(1, 100)
-			var o = null
-
-			if (n.between(1, 40))
-			{
-				o = new Beer()
-			}
-			else if (n.between(40, 60))
-			{
-				o = new Burguer()
-			}
-			else if (n.between(60, 80))
-			{
-				o = new HotDog()
-			}
-			else
-			{
-				o = new FrenchFries()
-			}
-			
-			objects.add(o)
-		})
-		
+		self.placeObstacles()
 		goalkeeper = new Goalkeeper()
-		
-		BALLS_MAX.times({ i =>
-			var b = new Ball()
-			objects.add(b)
-		})
+		self.placeBalls()
 		
 		score = new Score()
 		timer = new Timer(seconds=GAME_DURATION)
@@ -72,7 +48,7 @@ object field
 		{
 			activeGame = false
 			player.setEnabled(false)
-			objects.forEach({ o => o.kill() })
+			self.getObjects().forEach({ o => o.kill() })
 		}
 	}
 
@@ -82,7 +58,7 @@ object field
 		score.reset()
 		timer.reset()
 		player.reset()
-		objects.forEach({ o => o.respawn()})
+		self.getObjects().forEach({ o => o.respawn()})
 	}
 	
 	method update()
@@ -96,7 +72,7 @@ object field
 			}
 			else
 			{
-				objects.forEach({ o =>
+				self.getObjects().forEach({ o =>
 					if (!o.isAlive()) o.respawn()
 				})
 			}
@@ -105,22 +81,22 @@ object field
 	
 	method getBallAt(_pos)
 	{
-		return objects.findOrElse({ o => o.position() ==_pos && o.getType() == OBJECT_TYPE_BALL }, { null })
+		return balls.findOrElse({ o => o.position() ==_pos }, { null })
 	}
 	
 	method getBalls()
 	{
-		return objects.filter({ o => o.getType() == OBJECT_TYPE_BALL })
+		return balls
 	}
 
 	method getObjects()
 	{
-		return objects
+		return obstacles + balls;
 	}
 	
 	method getObjectAt(_pos)
 	{
-		return objects.findOrElse({ o => o.position() ==_pos }, { null })
+		return self.getObjects().findOrElse({ o => o.position() ==_pos }, { null })
 	}
 	
 	method getGoal()
@@ -168,5 +144,25 @@ object field
 	{
 		return self.getPlayer().position() != _pos
 			&& null == self.getObjectAt(_pos)
+	}
+	
+	method generateObstacle()
+	{
+		var prob = 1.randomUpTo(100)
+		return 
+			if (prob < 40) new Beer()
+			else if (prob < 60) new Food(tipo = burguer)
+			else if (prob < 80) new Food(tipo = hotDog)
+			else new Food(tipo = frenchFries)
+	}
+
+	method placeObstacles()
+	{
+		obstaclesMax.times({ i => obstacles.add(self.generateObstacle()) })
+	}
+	
+	method placeBalls()
+	{
+		ballsMax.times({ i => balls.add(new Ball()) })
 	}
 }

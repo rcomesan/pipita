@@ -25,11 +25,6 @@ class Ball inherits LivingObject
 		game.onTick(16, "pelota-update", { self.update() })
 	}
 	
-	method getType()
-	{
-		return OBJECT_TYPE_BALL
-	}
-	
 	override method image()
 	{
 		if (kickStartTime == 0)
