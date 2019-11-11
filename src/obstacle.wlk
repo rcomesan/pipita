@@ -8,7 +8,7 @@ class Obstacle inherits LivingObject
 	{
 		self.respawn()
 	}
-	
+
 	method canWalkInto(_isPlayer, _fromDir)
 	{
 		if (_isPlayer)
@@ -16,10 +16,5 @@ class Obstacle inherits LivingObject
 			self.take()
 		}
 		return _isPlayer
-	}
-	
-	method getType()
-	{
-		return OBJECT_TYPE_OBSTACLE
 	}
 }
