@@ -1,10 +1,12 @@
 import wollok.game.*
 import defines.*
 import field.*
+import goal.*
+import player.*
 import time.*
 import animated_visual.*
 
-class Goalkeeper inherits AnimatedVisual
+object goalkeeper inherits AnimatedVisual
 {
 	var animIdle = 0
 	var animSave = 0
@@ -24,7 +26,7 @@ class Goalkeeper inherits AnimatedVisual
 
 	method reset()
 	{
-		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, field.getGoal().position().y())
+		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, goal.position().y())
 	}
 	
 	method canSave(_ballPos)
@@ -51,12 +53,12 @@ class Goalkeeper inherits AnimatedVisual
 		}
 		else
 		{
-	 		targetPosX = field.getPlayer().position().x()
+	 		targetPosX = player.position().x()
 		}
 		
 		targetPosX = general.clamp(targetPosX,
-				field.getGoal().getPosPostLeft() + 1,
-				field.getGoal().getPosPostRight() - 1)
+				goal.getPosPostLeft() + 1,
+				goal.getPosPostRight() - 1)
 		
 		if (position.x() > targetPosX)
 		{

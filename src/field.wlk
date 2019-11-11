@@ -16,10 +16,6 @@ object field
 
 	var activeGame = false
 
-	var player
-	var goal
-	var goalkeeper
-
 	var timer
 	var score
 
@@ -30,14 +26,14 @@ object field
 	{
 		game.onTick(1000, "Goalkeeper-update", { self.update() })
 
-		goal = new Goal()
+		goal.initialize()
 		self.placeObstacles()
-		goalkeeper = new Goalkeeper()
+		goalkeeper.initialize()
 		self.placeBalls()
 
 		score = new Score()
 		timer = new Timer(seconds=GAME_DURATION)
-		player = new Player()
+		player.initialize()
 	}
 
 	method endGame()
@@ -97,11 +93,6 @@ object field
 		return self.getObjects().findOrElse({ o => o.position() ==_pos }, { null })
 	}
 
-	method getGoal()
-	{
-		return goal
-	}
-
 	method getTimer()
 	{
 		return timer
@@ -110,16 +101,6 @@ object field
 	method getScore()
 	{
 		return score	
-	}
-
-	method getPlayer()
-	{
-		return player
-	}
-
-	method getGoalkeeper()
-	{
-		return goalkeeper
 	}
 
 	method isRespawnPos(_pos)
@@ -140,7 +121,7 @@ object field
 
 	method isEmptyPos(_pos)
 	{
-		return self.getPlayer().position() != _pos
+		return player.position() != _pos
 			&& null == self.getObjectAt(_pos)
 	}
 

@@ -13,7 +13,7 @@ object sober
 	method move(_dir) = _dir
 }
 
-class Player inherits AnimatedVisual
+object player inherits AnimatedVisual
 {
 	var animIdle = 0
 	var animKicking = 0

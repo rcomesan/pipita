@@ -1,6 +1,6 @@
 import wollok.game.*
 import obstacle.*
-import field.*
+import player.*
 import defines.*
 
 class Beer inherits Obstacle
@@ -13,7 +13,7 @@ class Beer inherits Obstacle
 	override method take()
 	{
 		game.sound("cerveza.ogg")
-		field.getPlayer().setDrunk(true)
+		player.setDrunk()
 		super()
 	}
 }

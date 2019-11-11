@@ -3,7 +3,7 @@ import static_visual.*
 import defines.*
 import field.*
 
-class Goal inherits StaticVisual
+object goal inherits StaticVisual
 {
 	override method initialize()
 	{
