@@ -1,24 +1,39 @@
-# ¡A jugar! 
+# Pipita on Wollok
 
-## Juego realizado con la biblioteca Wollok Game
-
-![reemplazar por una animación del juego](https://d33wubrfki0l68.cloudfront.net/1ba3cf64b23a4ac786d7432121abbd782794730c/ce83b/documentacion/conceptos/images/wollokcharacter.gif)
-
+[![Pipita on Wollok](https://user-images.githubusercontent.com/48768365/68556343-af953300-0410-11ea-986c-b996897a619e.gif)](https://youtu.be/IW7-s-gvduU)
+_Gameplay completo en [YouTube](https://youtu.be/IW7-s-gvduU)._
 ### Resumen:
+Ayuda al Pipa a entrenarse para poder convertir goles decisivos en finales.
 
+Cada gol suma 1 punto. Pero espera, NADA de comida. Entendido?
+
+Esquiva las cervezas o harás que el pipa pierda el control.
 
 ### Instrucciones:
-
+ * _\<N\>_ Empieza un juego nuevo.
+ * _\<Flecha Arriba\>_ Mueve al pipa hacia el norte.
+ * _\<Flecha Abajo\>_ Mueve al pipa hacia el sur.
+ * _\<Flecha Derecha\>_ Mueve al pipa hacia el este.
+ * _\<Flecha Izquierda\>_ Mueve al pipa hacia el oeste.
+ * _\<Barra Espaciadora\>_ Patea.
 
 ### Acerca de:
 
-Autores:
+_Autores_:
+* Rodrigo Comesaña
+* Ian Crespi
+* Rodrigo Pinto
+* Sebastián Cafiero
 
-Docente/Curso/Institución:
+_Docente_: Lucas Spigarol
 
-Versión de wollok:
+Curso/Institución: Z2002 - UTN FRBA
 
-Fecha:
+_Versión de Wollok_: 1.8.5
 
-[Guía de herramientas](https://www.wollok.org/documentacion/conceptos/)
+_Fecha_: 22/10/2019
 
+### Disclaimer:
+Pipita on Wollok es un _spin-off_ del espectacular Pipita on Fire desarrollado por [Emanuel Skorepa](https://wwww.emanuelskorepa.com.ar), lanzado en [Google Play](https://play.google.com/store/apps/details?id=com.ES.Pipita_Onfire) a mediados de 2016. Si bien el gameplay implementado en este proyecto difiere de las mecánicas originales, Pipita on Wollok está fuertemente inspirado en su idea. 
+
+La mayoría de los assets utilizados en éste proyecto son propiedad intelectual de Emanuel Skorepa y fueron tomados sin su expresa autorización con fines puramente educativos ante la falta de conocimiento en dichas áreas.
