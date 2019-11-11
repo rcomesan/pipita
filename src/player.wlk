@@ -3,15 +3,25 @@ import defines.*
 import field.*
 import animated_visual.*
 
+object drunk
+{
+	method move(_dir) = general.getRndInt(1, 4)
+}
+
+object sober
+{
+	method move(_dir) = _dir
+}
+
 class Player inherits AnimatedVisual
 {
 	var animIdle = 0
 	var animKicking = 0
 	
 	var isEnabled = true
-	var isDrunk = false
+	var state
 	
-	method initialize()
+	override method initialize()
 	{
 		self.setupVisual()
 		animIdle = self.addAnimation("jugador", 2)
@@ -29,18 +39,21 @@ class Player inherits AnimatedVisual
 
 	method reset()
 	{
-		self.setDrunk(false)
-		self.setEnabled(true)
+		state = sober
 		position = game.at((FIELD_TILES_WIDTH - 1) * 0.5, 0)
+
+		self.setEnabled(true)
 	}
 
-	method setDrunk(_on)
+	method setDrunk()
 	{
-		isDrunk = _on
-		if (isDrunk)
-		{
-			game.schedule(DRUNK_EFFECT_DURATION * 1000, { => isDrunk = false })
-		}		
+		state = drunk
+		game.schedule(DRUNK_EFFECT_DURATION * 1000, { => self.setSober() })		
+	}
+	
+	method setSober()
+	{
+		state = sober
 	}
 	
 	method setEnabled(_on)
@@ -70,9 +83,9 @@ class Player inherits AnimatedVisual
 	method move(_dir)
 	{
 		if (!isEnabled) return false
-				
+
 		var newPosition = game.at(0,0)
-		var dir = if (isDrunk) general.getRndInt(1, 4) else _dir
+		var dir = state.move(_dir)
 
 		if (dir == DIR_WEST)
 		{
