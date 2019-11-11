@@ -9,9 +9,9 @@ class Goalkeeper inherits AnimatedVisual
 	var animIdle = 0
 	var animSave = 0
 	
-	method initialize()
+	override method initialize()
 	{
-		game.onTick(GOALKEEPER_REACTION, "goalkeeper-update", { self.update() })
+		game.onTick(GOALKEEPER_REACTION, "goalkeeper-update", { self.updatePosition() })
 		
 		self.setupVisual()
 		
@@ -40,7 +40,7 @@ class Goalkeeper inherits AnimatedVisual
 		return false
 	}
 	
-	method update()
+	method updatePosition()
 	{
 		var targetPosX = 0
 		

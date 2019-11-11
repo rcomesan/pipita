@@ -10,6 +10,11 @@ class AnimatedVisual inherits StaticVisual
 	
 	var frameNumber = 0
 	
+	var setPending = false
+	var setAnimNumber = 0
+	var setSpeed = 0
+	var setInLoop = 0
+	
 	var animNumber = 0	
 	var animSpeed = 1
 	var animStartTime = 0
@@ -40,21 +45,28 @@ class AnimatedVisual inherits StaticVisual
 	
 	method setAnimation(_animNumber, _speed, _inLoop)
 	{
-		if (_animNumber != animNumber)
-		{
-			animNumberPrev = animNumber
-			animSpeedPrev = animSpeed
-			animStartTimePrev = animStartTime
-			
-			animLooping = _inLoop
-			animNumber = general.clamp(_animNumber, 0, anims.size() - 1)
-			animSpeed = _speed
-			animStartTime = time.getCounter()
-		}
+		setAnimNumber = _animNumber
+		setSpeed = _speed
+		setInLoop = _inLoop
+		setPending = true
 	}
 
 	method update()
 	{
+		if (setPending && setAnimNumber != animNumber)
+		{			
+			animNumberPrev = animNumber
+			animSpeedPrev = animSpeed
+			animStartTimePrev = animStartTime
+			
+			animLooping = setInLoop
+			animNumber = general.clamp(setAnimNumber, 0, anims.size() - 1)
+			animSpeed = setSpeed
+			animStartTime = time.getCounter()
+			
+			setPending = false
+		}
+		
 		var anim = anims.get(animNumber)
 		frameNumber = (time.getDelta(animStartTime) * animSpeed).truncate(0) % anim.size()
 		
