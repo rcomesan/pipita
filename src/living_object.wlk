@@ -10,7 +10,7 @@ class LivingObject inherits StaticVisual
 	
 	var lifeMin = 0
 	var lifeMax = 0
-	var totalLife = 0
+	var property totalLife = 0
 	
 	method setup(_image, _lifeMin, _lifeMax)
 	{
@@ -22,20 +22,15 @@ class LivingObject inherits StaticVisual
 		
 		self.respawn()	
 	}
-		
-	method getTotalLife()
-	{
-		return totalLife
-	}
 	
-	method getCurrentLife()
+	method currentLife()
 	{
 		return 0.max(totalLife - time.getDelta(creationTime))
 	}
 	
 	method isAlive()
 	{
-		return active && self.getCurrentLife() > 0
+		return active && self.currentLife() > 0
 	}
 	
 	method kill()

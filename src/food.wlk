@@ -30,7 +30,7 @@ class Food inherits Obstacle
 	override method take()
 	{
 		game.sound("comer.ogg")
-		field.getScore().increment(-1)
+		field.score().increment(-1)
 		super()
 	}
 }

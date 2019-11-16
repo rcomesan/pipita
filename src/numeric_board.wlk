@@ -4,7 +4,7 @@ import static_visual.*
 
 class NumericBoard inherits StaticVisual
 {
-	var value = 0
+	var property value = 0
 	var numTexture = null
 	
 	method setup(_position, _label, _leftAligned)
@@ -48,10 +48,5 @@ class NumericBoard inherits StaticVisual
 	method setValue(_value)
 	{
 		value = general.clamp(_value, 0, 60)
-	}
-	
-	method getValue()
-	{
-		return value
 	}
 }

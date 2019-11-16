@@ -25,30 +25,30 @@ class Score inherits NumericBoard
 		
 	method increment(_amount)
 	{
-		self.setValue(self.getValue() + _amount) 		
+		self.setValue(self.value() + _amount) 		
 	}
 	
 	method showGameOver()
 	{
 		var imgNumber = 0
 		
-		if (self.getValue().between(1, 2))
+		if (self.value().between(1, 2))
 		{
 			imgNumber = 1
 		}
-		if (self.getValue() == 3)
+		if (self.value() == 3)
 		{
 			imgNumber = 2
 		}
-		else if (self.getValue().between(4, 6))
+		else if (self.value().between(4, 6))
 		{
 			imgNumber = 3
 		}
-		else if (self.getValue().between(7, 10))
+		else if (self.value().between(7, 10))
 		{
 			imgNumber = 4
 		}
-		else if (self.getValue() > 10)
+		else if (self.value() > 10)
 		{
 			imgNumber = 5
 		}

@@ -29,7 +29,7 @@ object goal inherits StaticVisual
 				&& _ballPos.x() < self.getPosPostRight()
 				&& _ballPos.y() > position.y())
 			{
-				field.getScore().increment(1)
+				field.score().increment(1)
 				game.sound("gol.ogg")		
 				return GOAL_RESULT_SCORES
 			}	

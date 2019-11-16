@@ -73,7 +73,7 @@ class Ball inherits LivingObject
 		
 		if (kickStartTime == 0)
 		{
-			currentImg = general.mapRange(self.getCurrentLife(), 1, self.getTotalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp()
+			currentImg = general.mapRange(self.currentLife(), 1, self.totalLife(), TEXTURED_BALL_MIN, TEXTURED_BALL_MAX).roundUp()
 		}
 	}
 

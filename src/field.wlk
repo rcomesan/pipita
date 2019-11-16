@@ -14,8 +14,8 @@ object field
 {
 	var activeGame = false
 
-	var timer
-	var score
+	const property timer = new Timer(seconds=GAME_DURATION)
+	const property score = new Score()
 
 	var obstacles = []
 	var balls = []
@@ -29,8 +29,6 @@ object field
 		goalkeeper.initializeObj()
 		self.placeBalls()
 
-		score = new Score()
-		timer = new Timer(seconds=GAME_DURATION)
 		player.initializeObj()
 	}
 
@@ -89,16 +87,6 @@ object field
 	method getObjectAt(_pos)
 	{
 		return self.getObjects().findOrElse({ o => o.position() ==_pos }, { null })
-	}
-
-	method getTimer()
-	{
-		return timer
-	}
-
-	method getScore()
-	{
-		return score	
 	}
 
 	method isRespawnPos(_pos)
