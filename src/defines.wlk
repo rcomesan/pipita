@@ -45,12 +45,6 @@ const GOAL_RESULT_SCORES = 1
 
 const KICK_INITIAL_SPEED = 30
 
-const DIR_CENTER = 0
-const DIR_NORTH = 1
-const DIR_WEST = 2
-const DIR_SOUTH = 3
-const DIR_EAST = 4
-
 object general
 {
 	method getRndPos(_minPos, _maxPos)

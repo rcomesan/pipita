@@ -63,9 +63,7 @@ class AnimatedVisual inherits StaticVisual
 		curAnim.frame((time.getDelta(curAnim.startTime()) * curAnim.speed()).truncate(0) % anim.size())
 		
 		if (!curAnim.looping() && curAnim.frame() >= anim.size() - 1)
-		{
 			curAnim = prevAnim		
-		}
 	}
 	
 	override method image()
