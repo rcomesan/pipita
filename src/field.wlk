@@ -8,12 +8,10 @@ import timer.*
 import score.*
 import food.*
 import beer.*
+import defines.*
 
 object field
 {
-	const obstaclesMax = 10
-	const ballsMax = 3
-
 	var activeGame = false
 
 	var timer
@@ -137,11 +135,11 @@ object field
 
 	method placeObstacles()
 	{
-		obstaclesMax.times({ i => obstacles.add(self.generateObstacle()) })
+		OBSTACLES_MAX.times({ i => obstacles.add(self.generateObstacle()) })
 	}
 
 	method placeBalls()
 	{
-		ballsMax.times({ i => balls.add(new Ball()) })
+		BALLS_MAX.times({ i => balls.add(new Ball()) })
 	}
 }
