@@ -95,29 +95,8 @@ class Ball inherits LivingObject
 	
 	method move(_dir)
 	{
-		var newPosition = game.at(0, 0)
+		var newPosition = _dir.move(position)
 
-		if (_dir == DIR_WEST)
-		{
-			newPosition = position.left(1)	
-		}
-		else if (_dir == DIR_EAST)
-		{
-			newPosition = position.right(1)
-		}
-		else if (_dir == DIR_NORTH)
-		{
-			newPosition = position.up(1)
-		}
-		else if (_dir == DIR_SOUTH)
-		{
-			newPosition = position.down(1)	
-		}
-		else
-		{
-			return false
-		}
-		
 		if (field.isRespawnPos(newPosition))
 		{
 			var obj = field.getObjectAt(newPosition)

@@ -2,15 +2,18 @@ import wollok.game.*
 import defines.*
 import field.*
 import animated_visual.*
+import movement.*
 
 object drunk
 {
-	method move(_dir) = general.getRndInt(1, 4)
+	const movements = [movementNorth, movementSouth, movementEast, movementWest]
+
+	method modifyDirection(_dir) = movements.anyOne()
 }
 
 object sober
 {
-	method move(_dir) = _dir
+	method modifyDirection(_dir) = _dir
 }
 
 object player inherits AnimatedVisual
@@ -29,10 +32,10 @@ object player inherits AnimatedVisual
 		self.setAnimation(animIdle, ANIM_SPEED, true)
 		
 		keyboard.space().onPressDo 	{ self.kick() }
-		keyboard.left().onPressDo 	{ self.move(DIR_WEST) }
-		keyboard.right().onPressDo 	{ self.move(DIR_EAST) }
-		keyboard.up().onPressDo 	{ self.move(DIR_NORTH) }
-		keyboard.down().onPressDo 	{ self.move(DIR_SOUTH) }
+		keyboard.left().onPressDo 	{ self.move(movementWest) }
+		keyboard.right().onPressDo 	{ self.move(movementEast) }
+		keyboard.up().onPressDo 	{ self.move(movementNorth) }
+		keyboard.down().onPressDo 	{ self.move(movementSouth) }
 		
 		self.reset()
 	}
@@ -84,29 +87,8 @@ object player inherits AnimatedVisual
 	{
 		if (!isEnabled) return false
 
-		var newPosition = game.at(0,0)
-		var dir = state.move(_dir)
-
-		if (dir == DIR_WEST)
-		{
-			newPosition = position.left(1)	
-		}
-		else if (dir == DIR_EAST)
-		{
-			newPosition = position.right(1)
-		}
-		else if (dir == DIR_NORTH)
-		{
-			newPosition = position.up(1)
-		}
-		else if (dir == DIR_SOUTH)
-		{
-			newPosition = position.down(1)	
-		}
-		else
-		{
-			return false
-		}
+		var dir = state.modifyDirection(_dir)
+		var newPosition = dir.move(position)
 		
 		if (field.isLegalPos(newPosition))
 		{
