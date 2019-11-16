@@ -11,7 +11,7 @@ object goalkeeper inherits AnimatedVisual
 	var animIdle = 0
 	var animSave = 0
 	
-	override method initialize()
+	method initializeObj()
 	{
 		game.onTick(GOALKEEPER_REACTION, "goalkeeper-update", { self.updatePosition() })
 		
@@ -46,7 +46,7 @@ object goalkeeper inherits AnimatedVisual
 	{
 		var targetPosX = 0
 		
-		var ballsMoving = field.getObjects().filter({ o => o.getType() == OBJECT_TYPE_BALL && o.isMoving() })
+		var ballsMoving = field.getBalls().filter({ o => o.isMoving() })
 		if (ballsMoving.size() > 0)
 		{
 			targetPosX = ballsMoving.first().position().x()

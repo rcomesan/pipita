@@ -2,6 +2,8 @@ import wollok.game.*
 import time.*
 import defines.*
 import goalkeeper.*
+import goal.*
+import field.*
 import living_object.*
 
 class Ball inherits LivingObject
@@ -53,8 +55,8 @@ class Ball inherits LivingObject
 			
 			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
-				if (goalKeeper.canSave(currentPos)
-					|| field.getGoal().canScore(currentPos) != GOAL_RESULT_NOTHING
+				if (goalkeeper.canSave(currentPos)
+					|| goal.canScore(currentPos) != GOAL_RESULT_NOTHING
 					|| !field.isLegalPos(currentPos))
 				{
 					kickStartTime = 0

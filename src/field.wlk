@@ -26,14 +26,14 @@ object field
 	{
 		game.onTick(1000, "Goalkeeper-update", { self.update() })
 
-		goal.initialize()
+		goal.initializeObj()
 		self.placeObstacles()
-		goalkeeper.initialize()
+		goalkeeper.initializeObj()
 		self.placeBalls()
 
 		score = new Score()
 		timer = new Timer(seconds=GAME_DURATION)
-		player.initialize()
+		player.initializeObj()
 	}
 
 	method endGame()

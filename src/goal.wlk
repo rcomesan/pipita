@@ -5,7 +5,7 @@ import field.*
 
 object goal inherits StaticVisual
 {
-	override method initialize()
+	method initializeObj()
 	{
 		var p = new Position(
 			x=FIELD_TILES_WIDTH * 0.5 - GOAL_TILES_WIDTH * 0.5,

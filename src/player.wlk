@@ -21,7 +21,7 @@ object player inherits AnimatedVisual
 	var isEnabled = true
 	var state
 	
-	override method initialize()
+	method initializeObj()
 	{
 		self.setupVisual()
 		animIdle = self.addAnimation("jugador", 2)
