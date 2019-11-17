@@ -12,12 +12,13 @@ _Gameplay completo con sonido en [YouTube](https://youtu.be/IW7-s-gvduU)._
 ### Instrucciones:
 Intenta de marcar la mayor cantidad de goles en los 30 segundos que dura un juego.
 
-Mueve al Pipa por la cancha lo más rápido que puedas buscando las pelotas y patea al arco. Si no lo haces, las mismas se reposicionarán al exceder su tiempo de vida.
+Mueve al Pipa por la cancha lo más rápido que puedas buscando las pelotas y patea al arco. Si no lo haces, las mismas se reposicionarán al agotar su tiempo de vida.
 
 Antes de patear puedes mover las pelotas en la dirección que desees. Esto te ayudará a tener una mejor posición al momento de patear y a eludir al arquero si lo haces rápido.
 
 Esquiva la comida para no perder puntos y la cerveza para no perder el control.
 
+### Controles:
  * _\<N\>_ Empieza un juego nuevo.
  * _\<Flecha Arriba\>_ Mueve al pipa hacia el norte.
  * _\<Flecha Abajo\>_ Mueve al pipa hacia el sur.
