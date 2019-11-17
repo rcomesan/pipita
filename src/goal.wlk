@@ -15,28 +15,25 @@ object goal inherits StaticVisual
 		self.setupVisual(p, "arco.png")
 	}
 
-	method canScore(_ballPos)
+	method canSave(_ballPos)
 	{
-		if (_ballPos.y() >= position.y())
+		if (_ballPos.y() >= position.y()
+			&& (_ballPos.x() == self.getPosPostLeft() || _ballPos.x() == self.getPosPostRight()))
 		{
-			if (_ballPos.x() == self.getPosPostLeft()
-				|| _ballPos.x() == self.getPosPostRight())
-			{
-				game.sound("palo.ogg")
-				return GOAL_RESULT_POSTS	
-			}
-			else if (_ballPos.x() > self.getPosPostLeft()
-				&& _ballPos.x() < self.getPosPostRight()
-				&& _ballPos.y() > position.y())
-			{
-				field.score().increment(1)
-				game.sound("gol.ogg")		
-				return GOAL_RESULT_SCORES
-			}	
+			game.sound("palo.ogg")
+			return true
 		}
-		return GOAL_RESULT_NOTHING
+
+		return false
 	}
 	
+	method isPosInside(_ballPos)
+	{
+		return (_ballPos.x() > self.getPosPostLeft()
+			&& _ballPos.x() < self.getPosPostRight()
+			&& _ballPos.y() > position.y())	
+	}
+
 	method getPosPostLeft()
 	{
 		return position.x()

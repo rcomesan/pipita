@@ -130,4 +130,10 @@ object field
 	{
 		BALLS_MAX.times({ i => balls.add(new Ball()) })
 	}
+	
+	method scoreNewGoal()
+	{
+		score.increment(1)
+		game.sound("gol.ogg")
+	}
 }

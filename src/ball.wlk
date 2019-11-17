@@ -55,9 +55,17 @@ class Ball inherits LivingObject
 			
 			if (currentPos.y() >= (FIELD_TILES_HEIGHT - 1 - GOAL_TILES_HEIGHT))
 			{
-				if (goalkeeper.canSave(currentPos)
-					|| goal.canScore(currentPos) != GOAL_RESULT_NOTHING
-					|| !field.isLegalPos(currentPos))
+				var ballCollided = goalkeeper.canSave(currentPos)
+					|| goal.canSave(currentPos)
+					|| !field.isLegalPos(currentPos)
+					
+				if (!ballCollided && goal.isPosInside(currentPos))
+				{
+					ballCollided = true
+					field.scoreNewGoal()
+				}
+				
+				if (ballCollided)
 				{
 					kickStartTime = 0
 					kickSpeed = 0
