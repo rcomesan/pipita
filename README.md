@@ -6,7 +6,7 @@ Cada gol suma 1 punto. Pero espera, NADA de comida. Entendido?
 
 Esquiva las cervezas o harás que el pipa pierda el control.
 
-[![Pipita on Wollok](ukwDhRSFQo](https://user-images.githubusercontent.com/48768365/69008869-1d1ff280-092e-11ea-8fe9-04f7b1435967.gif)](https://youtu.be/IW7-s-gvduU)
+[![Pipita on Wollok](https://user-images.githubusercontent.com/48768365/69008869-1d1ff280-092e-11ea-8fe9-04f7b1435967.gif)](https://youtu.be/IW7-s-gvduU)
 _Gameplay completo con sonido en [YouTube](https://youtu.be/IW7-s-gvduU)._
 
 ### Instrucciones:
